@@ -59,13 +59,16 @@ def find_detail():
     try:
         with open("data.json", "r") as data_file:
             data = json.load(data_file)
+    except FileNotFoundError:
+        messagebox.showinfo("Error", "No file Found")
+    else:
+        if website in data:
             email = data[website]["Email"]
             password = data[website]["Password"]
             messagebox.showinfo(f"{website}", f"Email: {email}\n Password: {password}")
-    except KeyError:
-        messagebox.showinfo("Error", f"No Website named {website} found")
-    except FileNotFoundError:
-        messagebox.showinfo("Error", "File Has 0 Data")
+        else:
+            messagebox.showinfo("Error", f"No Website named {website} found")
+
 
 
 # ---------------------------- UI SETUP ------------------------------- #
